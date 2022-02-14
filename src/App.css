@@ -1,3 +1,6 @@
-.App {
-  text-align: center;
+.app-wrapper {
+    position: relative;
+    width: 99vw;
+    height: 99vh
+
 }
