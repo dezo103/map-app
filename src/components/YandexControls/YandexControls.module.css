@@ -1,0 +1,9 @@
+.yandexControls {
+    display: flex;
+    flex-direction: column;
+    position:absolute;
+    top:0;
+    left: 0;
+    margin: 50px;
+    width: 380px;
+}
