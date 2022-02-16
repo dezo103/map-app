@@ -1,32 +1,41 @@
 import React from 'react';
-import {YMaps, Map} from 'react-yandex-maps';
+import {YMaps, Map, Placemark} from 'react-yandex-maps';
 import styles from './YandexMap.module.css'
-import {useDispatch} from "react-redux";
-import {getAdressTC, setLocationAC} from "../../state/coordinate-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
+import {AppRootStateType} from "../../state/store";
 
 const YandexMap = () => {
 
     const dispatch = useDispatch()
+    const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)
 
     const changeCoordinationFormat = (arr: any) => {
         return [arr[0], arr[1]] = [arr[1], arr[0]]
     }
 
-    const onClickHandler = (e:any) => {
+    const onClickHandler = (e: any) => {
+        //console.log(e)
         let formattedCoordinates = changeCoordinationFormat(e.get('coords'))
-        dispatch(setLocationAC(formattedCoordinates))
-        dispatch(getAdressTC(formattedCoordinates))
-        console.log(formattedCoordinates)
+        dispatch(setLocationTC(formattedCoordinates))
     }
 
     return (
         <YMaps className={styles.yandexMap}>
-            <Map
-                defaultState={{center: [54.31, 26.86], zoom: 12}}
-                width={"100vw"}
-                height={"100vh"}
-                onClick={(e: any)=>{onClickHandler(e)}}
-            />
+            <Map onClick={(e: any) => {
+                onClickHandler(e)
+            }}
+                 defaultState={{center: [54.31, 26.86], zoom: 12}}
+                 width={"100vw"}
+                 height={"100vh"}
+            >
+                {locations.map((mapPoint: any, index) => <Placemark
+                    key={index}
+                    geometry={[+mapPoint.longitude, +mapPoint.latitude]}
+                    properties={ {iconContent: index+1} }
+                    options={{preset: 'islands#violetIcon'}}
+                />)}
+            </Map>
         </YMaps>
     );
 };

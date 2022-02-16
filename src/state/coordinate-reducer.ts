@@ -2,12 +2,23 @@ import {Dispatch} from "redux";
 import {yandexMapAPI} from "../api/yandexMapAPI";
 
 const initialState: CoordinatesStateType = [
+    // {
+    //     latitude: 45.67,
+    //     longitude: 33.45,
+    //     name: 'Gudula'
+    // },
+    // {
+    //     latitude: 45.67,
+    //     longitude: 33.45,
+    //     name: 'Gudula'
+    // },
+
 ]
 
 export const coordinatesReducer = (state: CoordinatesStateType = initialState, action: any): any => {
     switch (action.type) {
         case 'COORDINATES/SET-LOCATION':
-            return [...state, action.location]
+            return [...state, {longitude: action.longitude, latitude: action.latitude, name: action.name}]
         case 'COORDINATES/RESET-COORDINATES':
             return []
         default:
@@ -15,17 +26,32 @@ export const coordinatesReducer = (state: CoordinatesStateType = initialState, a
     }
 }
 
-export const setLocationAC = (location: LocationType) => ({type: 'COORDINATES/SET-LOCATION', location})
 export const resetCoordinatesAC = () => ({type: 'COORDINATES/RESET-COORDINATES'})
 
-
-export const getAdressTC = (location: any) => (dispatch: Dispatch) => {
-    yandexMapAPI.getAdressByCoordinates(location)
-        .then((res) => {
-           console.log(res.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text)})
+const setLocationAC = (textDataLocation: string, coordinatesDataLocation: Array<number>) => {
+    return {
+        type: 'COORDINATES/SET-LOCATION',
+        name: textDataLocation,
+        latitude: coordinatesDataLocation[0],
+        longitude: coordinatesDataLocation[1]
+    }
 }
 
-export type LocationType = Array<number>
+export const setLocationTC = (location: any) => (dispatch: Dispatch) => {
+    yandexMapAPI.getAdressByCoordinates(location)
+        .then((res) => {
+            //console.log(location)
+            //console.log(res.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text)
+            let response = (res.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text)
+            dispatch(setLocationAC(response, location))
+        })
+}
+
+export type LocationType = {
+    latitude: number,
+    longitude: number,
+    name?: string
+}
 
 export type CoordinatesStateType = Array<LocationType>
 
