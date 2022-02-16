@@ -9,7 +9,6 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../../state/store";
 import {CoordinatesStateType} from "../../state/coordinate-reducer";
 
-
 export const MyTable = () => {
 
     const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)

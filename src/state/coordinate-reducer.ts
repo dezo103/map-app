@@ -12,7 +12,6 @@ const initialState: CoordinatesStateType = [
     //     longitude: 33.45,
     //     name: 'Gudula'
     // },
-
 ]
 
 export const coordinatesReducer = (state: CoordinatesStateType = initialState, action: any): any => {
