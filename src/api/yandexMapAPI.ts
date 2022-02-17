@@ -7,8 +7,11 @@ const instance = axios.create({
 const apikey = '37a700cd-2692-4c88-9cb8-965eabbaea52'
 
 export const yandexMapAPI = {
-    getAdressByCoordinates(location: any) {
+    getAddressByCoordinates(location: any) {
         return instance.get(`?apikey=${apikey}&format=json&geocode=${location}`)
+    },
+    gedCoordinateByAddress(address: any) {
+        return instance.get(`?apikey=${apikey}&format=json&geocode=${address}`)
     }
 }
 

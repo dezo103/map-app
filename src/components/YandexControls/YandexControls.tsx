@@ -1,23 +1,29 @@
 import React from 'react';
 import styles from './YandexControls.module.css'
-import {useDispatch} from "react-redux";
-import {resetCoordinatesAC} from "../../state/coordinate-reducer";
+import {useDispatch, useSelector} from "react-redux";
+import {CoordinatesStateType, resetCoordinatesAC} from "../../state/coordinate-reducer";
 import Button from "@mui/material/Button";
 import {MyTable} from "../MyTable/MyTable";
+import {Finder} from "../Finder/Finder"
+import {AppRootStateType} from "../../state/store";
 
 const YandexControls = () => {
 
     const dispatch = useDispatch()
-
+    const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)
+    //console.log(locations)
     const onClickHandler = () => {
         dispatch(resetCoordinatesAC())
     }
 
     return (
         <div className={styles.yandexControls}>
+            <Finder />
             <Button color="error"
                     variant="contained"
-                    onClick={onClickHandler}>Reset coordinates</Button>
+                    onClick={onClickHandler}
+                    disabled={locations.length == 0 }
+            >Reset coordinates</Button>
             <MyTable/>
         </div>
     );

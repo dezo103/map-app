@@ -4,15 +4,12 @@ import styles from './YandexMap.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
 import {AppRootStateType} from "../../state/store";
+import {changeCoordinationFormat} from "../../utils/changeCoordinationFormat";
 
 const YandexMap = () => {
 
     const dispatch = useDispatch()
     const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)
-
-    const changeCoordinationFormat = (arr: any) => {
-        return [arr[0], arr[1]] = [arr[1], arr[0]]
-    }
 
     const onClickHandler = (e: any) => {
         //console.log(e)

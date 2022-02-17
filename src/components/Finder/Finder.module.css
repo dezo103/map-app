@@ -1,0 +1,15 @@
+.finder {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    background-color: #fff;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.outputCoordinates {
+    width: 70%;
+}

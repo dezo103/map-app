@@ -37,7 +37,7 @@ const setLocationAC = (textDataLocation: string, coordinatesDataLocation: Array<
 }
 
 export const setLocationTC = (location: any) => (dispatch: Dispatch) => {
-    yandexMapAPI.getAdressByCoordinates(location)
+    yandexMapAPI.getAddressByCoordinates(location)
         .then((res) => {
             //console.log(location)
             //console.log(res.data.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.text)
