@@ -24,7 +24,8 @@ export const Finder = () => {
         },
         typography: {
             width: '70%',
-            color: '#666'
+            color: '#666',
+            paddingLeft: '10px'
         }
     })
 

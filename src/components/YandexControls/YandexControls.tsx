@@ -22,7 +22,7 @@ const YandexControls = () => {
             <Button color="error"
                     variant="contained"
                     onClick={onClickHandler}
-                    disabled={locations.length == 0 }
+                    disabled={locations.length === 0 }
             >Reset coordinates</Button>
             <MyTable/>
         </div>
