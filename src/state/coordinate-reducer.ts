@@ -17,7 +17,7 @@ const initialState: CoordinatesStateType = [
 export const coordinatesReducer = (state: CoordinatesStateType = initialState, action: any): any => {
     switch (action.type) {
         case 'COORDINATES/SET-LOCATION':
-            return [{longitude: action.longitude, latitude: action.latitude, name: action.name}, ...state]
+            return [...state, {longitude: action.longitude, latitude: action.latitude, name: action.name}]
         case 'COORDINATES/RESET-COORDINATES':
             return []
         default:

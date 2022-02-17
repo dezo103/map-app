@@ -18,6 +18,7 @@ const YandexControls = () => {
 
     return (
         <div className={styles.yandexControls}>
+            <p className={styles.description}>To add new location click 'Find location' or double click on the map</p>
             <Finder />
             <Button color="error"
                     variant="contained"

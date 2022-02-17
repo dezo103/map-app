@@ -11,7 +11,7 @@ const YandexMap = () => {
     const dispatch = useDispatch()
     const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)
 
-    const onClickHandler = (e: any) => {
+    const onDblClickHandler = (e: any) => {
         //console.log(e)
         let formattedCoordinates = changeCoordinationFormat(e.get('coords'))
         dispatch(setLocationTC(formattedCoordinates))
@@ -19,8 +19,9 @@ const YandexMap = () => {
 
     return (
         <YMaps className={styles.yandexMap}>
-            <Map onClick={(e: any) => {
-                onClickHandler(e)
+            <Map onDblClick={(e: any) => {
+                e.preventDefault()
+                onDblClickHandler(e)
             }}
                  defaultState={{center: [54.31, 26.86], zoom: 12}}
                  width={"100vw"}

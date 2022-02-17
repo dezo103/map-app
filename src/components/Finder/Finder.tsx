@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import Button from "@mui/material/Button";
 import styles from './Finder.module.css'
 import TextField from "@mui/material/TextField";
@@ -11,6 +11,8 @@ import {setLocationTC} from "../../state/coordinate-reducer";
 import {splitString} from "../../utils/splitString";
 
 export const Finder = () => {
+
+    const [textValue, setTextValue] = useState('')
 
     const dispatch = useDispatch()
     const address = useSelector<AppRootStateType, any>((state) => state.foundCoordinates)
@@ -32,12 +34,18 @@ export const Finder = () => {
     const style = useStyles()
 
     const onClickHandler = () => {
-        dispatch(setAddressTC('Москва'))
+        dispatch(setAddressTC(textValue))
+        //setTextValue('')
     }
 
     const onAddClickHandler = () => {
         dispatch(setLocationTC(splitString(address)))
         dispatch(resetAddressAC())
+        setTextValue('')
+    }
+
+    const onChangeTextValue = (e: ChangeEvent<HTMLInputElement>) => {
+        setTextValue(e.currentTarget.value)
     }
 
     return (
@@ -45,11 +53,14 @@ export const Finder = () => {
             <TextField label="Find location"
                        variant="outlined"
                        className={style.textField}
+                       value={textValue}
+                       onChange={onChangeTextValue}
             />
             <Button color="primary"
                     variant="contained"
                     className={style.button}
-                    onClick={onClickHandler}>Find</Button>
+                    onClick={onClickHandler}
+                    disabled={textValue === ""}>Find</Button>
             <div className={styles.outputCoordinates}>
                 <Typography
                     className={style.typography}
