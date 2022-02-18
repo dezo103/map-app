@@ -1,5 +1,5 @@
 import React from 'react';
-import {YMaps, Map, Placemark} from 'react-yandex-maps';
+import {Map, Placemark, YMaps} from 'react-yandex-maps';
 import styles from './YandexMap.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
@@ -10,9 +10,9 @@ const YandexMap = () => {
 
     const dispatch = useDispatch()
     const locations = useSelector<AppRootStateType, CoordinatesStateType>((state) => state.coordinates)
+    const mapCenter = useSelector<AppRootStateType, any>((state) => state.mapCenter)
 
     const onDblClickHandler = (e: any) => {
-        //console.log(e)
         let formattedCoordinates = changeCoordinationFormat(e.get('coords'))
         dispatch(setLocationTC(formattedCoordinates))
     }
@@ -23,9 +23,10 @@ const YandexMap = () => {
                 e.preventDefault()
                 onDblClickHandler(e)
             }}
-                 defaultState={{center: [54.31, 26.86], zoom: 12}}
+                 //defaultState={{center: [54.31, 26.86], zoom: 12}}
                  width={"100vw"}
                  height={"100vh"}
+                 state={{center: mapCenter, zoom: 11}}
             >
                 {locations.map((mapPoint: any, index) => <Placemark
                     key={index}

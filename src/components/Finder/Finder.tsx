@@ -16,7 +16,6 @@ export const Finder = () => {
 
     const dispatch = useDispatch()
     const address = useSelector<AppRootStateType, any>((state) => state.foundCoordinates)
-    //console.log(address)
     const useStyles = makeStyles({
         textField: {
             width: '70%'
@@ -35,7 +34,6 @@ export const Finder = () => {
 
     const onClickHandler = () => {
         dispatch(setAddressTC(textValue))
-        //setTextValue('')
     }
 
     const onAddClickHandler = () => {

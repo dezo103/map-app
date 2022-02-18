@@ -2,11 +2,6 @@ import {Dispatch} from "redux";
 import {yandexMapAPI} from "../api/yandexMapAPI";
 
 const initialState: null | string = ""
-//     [
-//     // "43456345345"
-// ]""
-
-
 
 export const foundCoordinatesReducer = (state: any = initialState, action: any): any => {
     switch (action.type) {
@@ -36,11 +31,3 @@ export const setAddressTC = (address: any) => (dispatch: Dispatch) => {
             dispatch(setAddressAC(response))
         })
 }
-
-// export type LocationType = {
-//     latitude: number,
-//     longitude: number,
-//     name?: string
-// }
-//
-// export type foundCoordinatesStateType = Array<LocationType>
