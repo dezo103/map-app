@@ -1,5 +1,5 @@
 import React from 'react';
-import {Clusterer, Map, Placemark, RulerControl, YMaps, ZoomControl} from 'react-yandex-maps';
+import {Clusterer, Map, Placemark, RulerControl, TypeSelector, YMaps, ZoomControl} from 'react-yandex-maps';
 import styles from './YandexMap.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
@@ -37,12 +37,14 @@ const YandexMap = () => {
                 {locations.map((mapPoint: any, index) => <Placemark
                     key={index}
                     geometry={[+mapPoint.longitude, +mapPoint.latitude]}
-                    properties={ {iconContent: index+1} }
+                    modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
+                    properties={{ iconContent: index+1, hintContent: mapPoint.name, balloonContent: `${mapPoint.longitude} | ${mapPoint.latitude}`}}
                     options={{preset: 'islands#violetIcon'}}
                 />)}
                 </Clusterer>
-                <ZoomControl options={{position: {right: 20, top: 20}}}/>
-                <RulerControl options={{ float: 'right' }} />
+                <ZoomControl options={{position: {right: 20, bottom: 80}}}/>
+                <RulerControl options={{position: {right: 20, bottom: 40}}} />
+                <TypeSelector options={{ float: 'right' }} />
             </Map>
         </YMaps>
     );
