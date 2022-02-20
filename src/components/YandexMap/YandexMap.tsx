@@ -2,7 +2,7 @@ import React from 'react';
 import {Clusterer, Map, Placemark, RulerControl, TypeSelector, YMaps, ZoomControl} from 'react-yandex-maps';
 import styles from './YandexMap.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
+import {CoordinatesStateType, moveLocationAC, setLocationTC} from "../../state/coordinate-reducer";
 import {AppRootStateType} from "../../state/store";
 import {changeCoordinationFormat} from "../../utils/changeCoordinationFormat";
 
@@ -15,6 +15,11 @@ const YandexMap = () => {
     const onDblClickHandler = (e: any) => {
         let formattedCoordinates = changeCoordinationFormat(e.get('coords'))
         dispatch(setLocationTC(formattedCoordinates))
+    }
+
+    const onDragendHandler = (id: string, e: any) => {
+        let formattedCoordinates = changeCoordinationFormat(e.originalEvent.target.geometry.getCoordinates())
+        dispatch(moveLocationAC(id, formattedCoordinates))
     }
 
     return (
@@ -39,7 +44,8 @@ const YandexMap = () => {
                     geometry={[+mapPoint.longitude, +mapPoint.latitude]}
                     modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
                     properties={{ iconContent: index+1, hintContent: mapPoint.name, balloonContent: `${mapPoint.latitude} | ${mapPoint.longitude}`}}
-                    options={{preset: 'islands#violetIcon'}}
+                    options={{preset: 'islands#violetIcon', draggable: true}}
+                    onDragend = {(e: any)=> {onDragendHandler(mapPoint.id, e)}}
                 />)}
                 </Clusterer>
                 <ZoomControl options={{position: {right: 20, bottom: 80}}}/>

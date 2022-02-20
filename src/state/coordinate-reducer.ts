@@ -26,6 +26,10 @@ export const coordinatesReducer = (state: CoordinatesStateType = initialState, a
             }]
         case 'COORDINATES/REMOVE-LOCATION':
             return state.filter(loc => loc.id !== action.id)
+        case 'COORDINATES/MOVE-LOCATION':
+            return state.map(loc => loc.id === action.id
+                        ? {...loc, longitude: action.longitude, latitude: action.latitude}
+                        : loc)
         case 'COORDINATES/RESET-COORDINATES':
             return []
         default:
@@ -42,6 +46,15 @@ export const setLocationAC = (textDataLocation: string, coordinatesDataLocation:
         latitude: coordinatesDataLocation[0],
         longitude: coordinatesDataLocation[1],
         id: v1()
+    } as const
+}
+
+export const moveLocationAC = (id: string, location: any) => {
+    return {
+        type: 'COORDINATES/MOVE-LOCATION',
+        latitude: location[0],
+        longitude: location[1],
+        id
     } as const
 }
 
