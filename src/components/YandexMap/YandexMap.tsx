@@ -38,7 +38,7 @@ const YandexMap = () => {
                     key={index}
                     geometry={[+mapPoint.longitude, +mapPoint.latitude]}
                     modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
-                    properties={{ iconContent: index+1, hintContent: mapPoint.name, balloonContent: `${mapPoint.longitude} | ${mapPoint.latitude}`}}
+                    properties={{ iconContent: index+1, hintContent: mapPoint.name, balloonContent: `${mapPoint.latitude} | ${mapPoint.longitude}`}}
                     options={{preset: 'islands#violetIcon'}}
                 />)}
                 </Clusterer>
