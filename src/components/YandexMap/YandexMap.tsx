@@ -1,5 +1,5 @@
 import React from 'react';
-import {Map, Placemark, YMaps} from 'react-yandex-maps';
+import {Clusterer, Map, Placemark, RulerControl, YMaps, ZoomControl} from 'react-yandex-maps';
 import styles from './YandexMap.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {CoordinatesStateType, setLocationTC} from "../../state/coordinate-reducer";
@@ -28,12 +28,21 @@ const YandexMap = () => {
                  height={"100vh"}
                  state={{center: mapCenter, zoom: 11}}
             >
+                <Clusterer
+                    options={{
+                        preset: 'islands#invertedVioletClusterIcons',
+                        groupByCoordinates: false,
+                    }}
+                >
                 {locations.map((mapPoint: any, index) => <Placemark
                     key={index}
                     geometry={[+mapPoint.longitude, +mapPoint.latitude]}
                     properties={ {iconContent: index+1} }
                     options={{preset: 'islands#violetIcon'}}
                 />)}
+                </Clusterer>
+                <ZoomControl options={{position: {right: 20, top: 20}}}/>
+                <RulerControl options={{ float: 'right' }} />
             </Map>
         </YMaps>
     );
