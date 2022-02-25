@@ -27,7 +27,9 @@ export const MyTable = () => {
             <Table sx={{minWidth: 360}} aria-label="simple table">
                 <TableBody>
                     {locations.map((el, index) => <TableRow
-                        key={index}>
+                        key={index}
+                        draggable={true}
+                        style={{cursor: "grab"}}>
                             <TableCell>{index+1}</TableCell>
                             <TableCell>{el.latitude}</TableCell>
                             <TableCell>{el.longitude}</TableCell>
