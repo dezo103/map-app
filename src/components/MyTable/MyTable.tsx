@@ -43,6 +43,7 @@ export const MyTable = () => {
                                     />
                                 </IconButton>
                             </TableCell>
+                        {/*<TableCell>order {el.order}</TableCell>*/}
                         </TableRow>
                     )}
                 </TableBody>

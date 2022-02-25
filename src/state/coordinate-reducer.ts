@@ -2,18 +2,7 @@ import {Dispatch} from "redux";
 import {yandexMapAPI} from "../api/yandexMapAPI";
 import {v1} from "uuid";
 
-const initialState: CoordinatesStateType = [
-    // {
-    //     latitude: 45.67,
-    //     longitude: 33.45,
-    //     name: 'Gudula'
-    // },
-    // {
-    //     latitude: 45.67,
-    //     longitude: 33.45,
-    //     name: 'Gudula'
-    // },
-]
+const initialState: CoordinatesStateType = []
 
 export const coordinatesReducer = (state: CoordinatesStateType = initialState, action: any): any => {
     switch (action.type) {
@@ -22,7 +11,8 @@ export const coordinatesReducer = (state: CoordinatesStateType = initialState, a
                 longitude: action.longitude,
                 latitude: action.latitude,
                 name: action.name,
-                id: action.id
+                id: action.id,
+                order: state.length + 1
             }]
         case 'COORDINATES/REMOVE-LOCATION':
             return state.filter(loc => loc.id !== action.id)
@@ -76,10 +66,11 @@ export const setLocationTC = (location: any) => (dispatch: Dispatch) => {
 }
 
 export type LocationType = {
-    latitude: number,
-    longitude: number,
-    name?: string,
+    latitude: number
+    longitude: number
+    name?: string
     id: string
+    order: number
 }
 
 export type CoordinatesStateType = Array<LocationType>
