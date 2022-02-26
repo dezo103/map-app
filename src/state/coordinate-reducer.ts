@@ -20,6 +20,8 @@ export const coordinatesReducer = (state: CoordinatesStateType = initialState, a
             return state.map(loc => loc.id === action.id
                         ? {...loc, longitude: action.longitude, latitude: action.latitude}
                         : loc)
+        case 'COORDINATES/REORDER-LOCATION':
+            return [...action.reorderedLocationsArray]
         case 'COORDINATES/RESET-COORDINATES':
             return []
         default:
@@ -54,6 +56,11 @@ export const removeLocationAC = (id: string) => {
     } as const
 }
 
+export const reorderLocationsAC = (reorderedLocationsArray: CoordinatesStateType) => {
+    return {
+        type: 'COORDINATES/REORDER-LOCATION', reorderedLocationsArray
+    } as const
+}
 
 export const setLocationTC = (location: any) => (dispatch: Dispatch) => {
     yandexMapAPI.getAddressByCoordinates(location)
